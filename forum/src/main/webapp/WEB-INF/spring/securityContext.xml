@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	
+	<context:component-scan base-package="com.yavor.mvc"/>
+	<bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+	
+
+	
+	<security:http auto-config="true" use-expressions="true">
+		<security:form-login login-page="/sign/sign_in" login-processing-url="/sign/sign_in"
+		default-target-url="/categories"  authentication-failure-url="//sign/sign_in?error=true"/>
+		<security:logout logout-url="/sign/sign_out" logout-success-url="/sign/sign_in?signout=true"/>
+		
+		<security:intercept-url pattern="/topic/*" access="hasRole('ROLE_USER')" method="POST"/>
+		<security:intercept-url pattern="/comments/*" access="hasRole('ROLE_USER')" method="POST"/>
+		<security:intercept-url pattern="/**" access="hasRole('ROLE_ANONYMOUS') or hasRole('ROLE_USER')"/>
+		
+		<security:remember-me key="rememberMe"/>
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserService"/>
+	</security:authentication-manager>
+	
+</beans>

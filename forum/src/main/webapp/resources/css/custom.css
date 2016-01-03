@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+body {
+	padding: 60px 0px 60px 0px;
+}
+
+.date {
+	font-style: italic;
+}
+
+p {
+	font-family: sans-serif;
+}
+
+#sign_up {
+	margin-top: 10px;
+}
+
+.form-signin, .create_user {
+	margin-top: 100px;
+}
+
+
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
+#divPasswordsMatch {
+	margin-bottom: 10px;
+}
